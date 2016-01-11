@@ -8,6 +8,8 @@
 <head>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="<spring:url value="/resources/CSS/custom.css"/>" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 <script type="text/javascript"
@@ -26,10 +28,18 @@
 	<jsp:include page="../jspFragments/header.jsp" />
 
 	<div class="container">
-
-		<input type="text" name="arrival" class="date" id="picker">
-
+		<div class="jumbotron">
+			<center><h1>Postit aplikacija</h1>
+		</div>
+		
+		<center>
+		<img src="resources/pictures/spring.jpg" />
+		<img src="resources/pictures/tomcat.jpg" />
+		<img src="resources/pictures/hibernate.png" />
+		</center>
+		
 	</div>
+	<br><br><br>
 	<jsp:include page="../jspFragments/footer.jsp" />
 </body>
 </html>

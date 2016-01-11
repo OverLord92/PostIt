@@ -41,6 +41,8 @@ public class LoginController {
 			return "register";
 		}
 		
+		user.setAuthority("USER");
+		user.setEnabled(true);
 		serviceDAO.createUser(user);
 		return "login";
 	}

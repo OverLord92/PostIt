@@ -10,9 +10,11 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet"
-	href="<spring:url value="/resources/CSS/jquery-ui.min.css"/>" type="text/css" />
+	href="<spring:url value="/resources/CSS/jquery-ui.min.css"/>"
+	type="text/css" />
 <link rel="stylesheet"
-	href="<spring:url value="/resources/CSS/jquery-ui.structure.css"/>" type="text/css" />
+	href="<spring:url value="/resources/CSS/jquery-ui.structure.css"/>"
+	type="text/css" />
 <link rel="stylesheet"
 	href="<spring:url value="/resources/CSS/custom.css"/>" type="text/css" />
 <title>Add new postits:</title>
@@ -23,47 +25,51 @@
 <script type="text/javascript"
 	src="<spring:url value="/resources/js/add.js"/>"></script>
 <script type="text/javascript"
+	src="<spring:url value="/resources/js/edit.js"/>"></script>
+<script type="text/javascript"
 	src="<spring:url value="/resources/js/jquery.ui.js"/>"></script>
-	
+
 </head>
 <body>
 	<jsp:include page="../jspFragments/header.jsp" />
 
 	<div class="container">
-	
+
 		<table class="table">
-		<tr>
-			<th class="col-xs-2">Subject:</th>
-			<th class="col-xs-7">Text:</th>
-			<th class="col-xs-2">Date:</th>
-			<th class="col-xs-1"></th>
-		</tr>
+			<tr>
+				<th class="col-xs-2">Subject:</th>
+				<th class="col-xs-7">Text:</th>
+				<th class="col-xs-2">Date:</th>
+				<th class="col-xs-1"></th>
+			</tr>
 		</table>
 
 		<c:url value="/addPost" var="formSubmitUrl" />
-		<form:form action="${formSubmitUrl}" method="POST" modelAttribute="postit" class="form-inline" id="addForm">
+		<form:form action="${formSubmitUrl}" method="POST"
+			modelAttribute="postit" class="form-inline" id="addForm">
 			<div class="form-group col-xs-2">
-				<form:input path="subject" class="form-control" id="subject" name="subject" />
+				<form:input path="subject" class="form-control" id="subject"
+					name="subject" />
 				<form:errors class="help-block" path="subject" />
 			</div>
 			<div class="form-group col-xs-7">
-				<form:textarea path="text" class="form-control col-xs-7" id="text" name="text" rows="5" cols="95" />
+				<form:textarea path="text" class="form-control col-xs-7" id="text"
+					name="text" rows="5" cols="95" />
 				<form:errors class="help-block" path="text" />
 			</div>
-			<div class="form-group col-xs-2">	
-				<form:input path="dateString" class="form-control" id="date" name="date" />
+			<div class="form-group col-xs-2">
+				<form:input path="dateString" class="form-control" id="date"
+					name="date" />
 				<form:errors class="help-block" path="dateString" />
 			</div>
-			<div class="form-group col-xs-1">	
-				<input type="submit" class="btn btn-primary" id="submit" value="Add Postit" />
+			<div class="form-group col-xs-1">
+				<input type="submit" class="btn btn-primary" id="submit"
+					value="Add Postit" />
 			</div>
 		</form:form>
 	</div>
 	<br>
 	<br>
-
-
-
 
 
 	<div class="container" id="showPostits">
@@ -75,12 +81,41 @@
 				<th class="col-xs-1"></th>
 			</tr>
 			<c:forEach items="${postits}" var="postit">
-				<tr>
-					<td>${postit.subject}</td>
-					<td>${postit.text}</td>
-					<td>${postit.date}</td>
-					<td><button class="btn btn-default done" id="${postit.id}">Done</button></td>
-				</tr>
+				<c:if test="${postit.active}">
+					<tr>
+						<td>${postit.subject}</td>
+						<td>${postit.text}</td>
+						<td>${postit.date}</td>
+						<td><button class="btn btn-default edit" id="${postit.id}">Edit</button></td>
+						<td><button class="btn btn-default done" id="${postit.id}">Done</button></td>
+					</tr>
+					
+<!-- 					ovjdje ce ic edit forma -->
+					<tr class="editPostitRow">
+							<td colspan="5">
+							<c:url value="/editPostit/${postit.id}" var="editPostitUrl" />
+							<form action="${editPostitUrl}" method="POST"
+								class="form-inline" id="addForm">
+								<div class="form-group col-xs-2">
+									<input class="form-control" id="subject"
+										name="subject" />
+								</div>
+								<div class="form-group col-xs-7">
+									<textarea class="form-control col-xs-7" id="text"
+										name="text" rows="5" cols="95"></textarea>
+								</div>
+								<div class="form-group col-xs-2">
+									<input class="form-control" id="date"
+										name="date" />
+								</div>
+									<div class="form-group col-xs-1">
+									<input type="submit" class="btn btn-primary" id="submit"
+										value="Edit Postit" />
+									</div>
+							</form>							
+						</td>
+					</tr>
+				</c:if>
 			</c:forEach>
 		</table>
 	</div>

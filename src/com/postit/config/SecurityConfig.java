@@ -38,18 +38,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 		http
 				.authorizeRequests()
-				.antMatchers("/sajt/**").access("hasRole('ROLE_USER')")
+				.antMatchers("/add").access("isAuthenticated()")
+				.antMatchers("/done").access("isAuthenticated()")
+				.antMatchers("/search").access("isAuthenticated()")
+				.antMatchers("/login").access("!isAuthenticated()")
+				.antMatchers("/register").access("!isAuthenticated()")
+				.antMatchers("/home").permitAll()
 				.antMatchers("/resources/**").permitAll()
-				.antMatchers("/home/**").permitAll()
 			.and()
 				.formLogin()
 				.loginPage("/login")
-				.defaultSuccessUrl("/home")
+				.defaultSuccessUrl("/add")
 				.failureUrl("/login?loginerror=true")
 			.and()
 				.logout()
 				.logoutUrl("/logout")
-				.logoutSuccessUrl("/home");
+				.logoutSuccessUrl("/home")
+			.and()
+				.rememberMe()
+				.tokenValiditySeconds(600)
+				.key("Movies");
 		
 	}
 	

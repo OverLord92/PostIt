@@ -1,8 +1,13 @@
 package com.postit.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 @Entity
@@ -15,6 +20,8 @@ public class User {
 	private String username;
 
 	private String authority;
+	
+	@Column(columnDefinition = "TINYINT(1)")
 	private boolean enabled;
 	
 	@Transient
@@ -23,6 +30,8 @@ public class User {
 	@Column(name="password")
 	private String encodedPassword;
 
+	@OneToMany(fetch=FetchType.EAGER)
+	List<Postit> postits = new ArrayList<>();
 	
 
 	public User() {
@@ -76,12 +85,23 @@ public class User {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
+	
+	
+	public List<Postit> getPostits() {
+		return postits;
+	}
+
+	public void setPostits(List<Postit> postits) {
+		this.postits = postits;
+	}
 
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", password=" + password + ", encodedPassword=" + encodedPassword
 				+ ", authority=" + authority + ", enabled=" + enabled + "]";
 	}
+
+	
 	
 	
 

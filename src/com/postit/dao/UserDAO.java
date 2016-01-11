@@ -27,6 +27,10 @@ public class UserDAO {
 		session().save(user);
 	}
 	
+	public User getuser(String username){
+		return (User)session().get(User.class, username);
+	}
+	
 	public boolean userExists(String username){
 		return session().get(User.class, username) != null;
 	}

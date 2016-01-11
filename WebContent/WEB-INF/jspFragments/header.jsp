@@ -4,7 +4,7 @@
 <div class="navbar navbar-static-top">
 	<div class="container">
 	
-		<a class="navbar-brand">Movie Database</a>
+		<a class="navbar-brand">Postits App</a>
 
 		<button class="navbar-toggle" data-toggle="collapse"
 			data-target=".navHeaderCollapse">
@@ -23,6 +23,21 @@
 				<sec:authorize access="!isAuthenticated()">
 					<li><c:url value="/login" var="loginUrl" /> 
 					<a href="${loginUrl}">Login</a></li>
+				</sec:authorize>
+
+				<sec:authorize access="isAuthenticated()">
+					<li><c:url value="/add" var="addUrl" />
+						<a href="${addUrl}">Add Postit</a></li>
+				</sec:authorize>
+				
+				<sec:authorize access="isAuthenticated()">
+					<li><c:url value="/done" var="doneUrl" />
+						<a href="${doneUrl}">Done Postits</a></li>
+				</sec:authorize>
+				
+				<sec:authorize access="isAuthenticated()">
+					<li><c:url value="/search" var="searchUrl" />
+						<a href="${searchUrl}">Search</a></li>
 				</sec:authorize>
 
 				<sec:authorize access="isAuthenticated()">
