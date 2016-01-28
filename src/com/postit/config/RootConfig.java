@@ -2,7 +2,6 @@ package com.postit.config;
 
 import java.util.Properties;
 
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
@@ -13,7 +12,7 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Import;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jndi.JndiTemplate;
+import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -29,16 +28,12 @@ public class RootConfig {
 
 	@Bean
 	public DataSource dataSource(){
-		DataSource dataSource = null;
-		JndiTemplate jndi = new JndiTemplate();
 		
-		try {
-			dataSource = (DataSource) jndi.lookup("java:comp/env/jdbc/post-it");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
+		JndiDataSourceLookup jndi = new JndiDataSourceLookup();
+		DataSource dataSource = jndi.getDataSource("jdbc/post-it");
 		
 		return dataSource;
+		
 	}
 	
 	@Bean
